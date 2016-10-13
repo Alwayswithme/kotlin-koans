@@ -12,5 +12,11 @@ fun example8() {
 
 fun Shop.getCustomersWithMoreUndeliveredOrdersThanDelivered(): Set<Customer> {
     // Return customers who have more undelivered orders than delivered
-    todoCollectionTask()
+//    todoCollectionTask()
+    val (a, b) = customers.partition {
+        val delivered = it.orders.filter { it.isDelivered }.size
+        val undelivered = (it.orders.size - delivered)
+        (undelivered - delivered) > 0
+    }
+    return a.toSet()
 }
